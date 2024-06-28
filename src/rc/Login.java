@@ -8,35 +8,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author RC_Student_lab
- */
-public class Login {//Create attributes for user details
-    
-    public String firstName;
-    public String lastName;
+
+
+ // @author Leshope Kopano ST10459862
+ 
+public class Login {
+
+
     public String correctUserName;
     public String correctPassword;
     
 //Creation of a default constructor to set the default values for all attributes
 
     public Login() {
-        this.firstName = "";
-        this.lastName = "";
+       
         this.correctUserName = "";
         this.correctPassword = "";
     }
     
 //Creation of getters that return the values for each attribute
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
 
     public String getCorreectUserName() {
         return correctUserName;
@@ -49,13 +39,6 @@ public class Login {//Create attributes for user details
     
 //Creation of setters that assign values for each attribute
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public void setUserName(String correctUserName) {
         this.correctUserName = correctUserName;
@@ -82,7 +65,7 @@ public class Login {//Create attributes for user details
    
      boolean isTrue (String correctPassword){
     
-    Pattern p = Pattern.compile("([A-Z])([a-z])([1-9])([!@#$%^&*])");
+    Pattern p = Pattern.compile("^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$");
     Matcher m = p.matcher(correctPassword);
     
     return m.find();
@@ -90,15 +73,9 @@ public class Login {//Create attributes for user details
     }
       boolean checkUserName(){
          
-        while(!isCorrect(correctUserName)){
-          JOptionPane.showMessageDialog(null,"Now type your registered username again to verify");
-         correctUserName = JOptionPane.showInputDialog(null,"Please type your registered username");
-        
-         
-     }
-     
-        
-        return true;
+        while(!isCorrect(correctUserName)|| correctUserName.length()>5){
+         correctUserName = JOptionPane.showInputDialog(null,"Please type your registered username to verify");
+     } return true;
         
        }
         
@@ -106,14 +83,10 @@ public class Login {//Create attributes for user details
 
     boolean checkPasswordComplexity(){
         
-      while (!isTrue(correctPassword) ){
-          JOptionPane.showMessageDialog(null,"Now type your registered password again to verify");
-          correctPassword = JOptionPane.showInputDialog(null, "Please type your registered password ");
-          
-          
+      while (!isTrue(correctPassword)|| correctPassword.length()>8 ){
+          correctPassword = JOptionPane.showInputDialog(null, "Please type your registered password to verify ");
       }
-     
-      return true;
+     return true;
    }
     
 /*Method(s) for checking if username and password corrisponds 
@@ -126,19 +99,13 @@ with the registerd input
   
       JOptionPane.showMessageDialog(null, "Hello Please Login");
       do{
-          
        correctUserName = JOptionPane.showInputDialog("Please enter your login Username");
        correctPassword = JOptionPane.showInputDialog("Please enter your login password");
-    
-      
-      
-      if(correctUserName.equals(userName)&& correctPassword.equals(password)){
-        JOptionPane.showMessageDialog(null, "Welcome back" + " " + userName);
+       if(correctUserName.equals(userName)&& correctPassword.equals(password)){
+       JOptionPane.showMessageDialog(null, "Welcome to EasyKhanban " +  userName);
          status = true; 
       }
-      
-      
-      else{
+       else{
           JOptionPane.showMessageDialog(null, "Username or password not valid please try again");
       }
       

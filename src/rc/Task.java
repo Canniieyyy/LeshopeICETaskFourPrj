@@ -4,20 +4,21 @@
  */
 package rc;
 
+
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author RC_Student_lab
- */
+
+ 
+ // @author Leshope Kopano ST10459862
+ 
 public class Task {
-    static Login objLogin = new Login();
     
-   private String taskN, taskID, taskDescription, taskNo,haveToDo,done,inProgress ;
-   private String [] userOptions = {"Add Tasks", "Show Report", "Quit"};
-   private int taskDuration;
-   
-   
+//Creation of attributes
+    
+   private String taskN, taskID, taskDescription, taskNo, taskOutcome, developerDetails, lastTN, lastTaskNo, developerName ;
+   private String [] userOptions = { "Choose one of the following from the menu by typing the number of your option:", "1)Add Tasks", "2)Show Report", "3)Quit"};
+   public int taskDuration, numOfTasks, i;
+   private char lastDName, lastDName2, lastDName3 ;
    
 //Creation of a default constructor to set the default values for all attributes
 
@@ -27,10 +28,17 @@ public class Task {
         this.taskDescription = "";
         this.taskNo = "";
         this.taskDuration = 0;
-        this.haveToDo = "";
-        this.done = "";
-        this.inProgress = "";
-        
+        this.taskOutcome = "";
+        this.developerDetails = "";
+        this.numOfTasks = 0 ;
+        this.i = 0;
+        this.lastTN = "";
+        this.lastTaskNo = "";
+        this.developerName = "";
+        this.lastDName = 'C';
+        this.lastDName2 = 'C';
+        this.lastDName3 = 'C';
+         
     }
     
 //Creation of getters that return the values for each attribute
@@ -59,22 +67,46 @@ public class Task {
         return taskDuration;
     }
 
-    public String getHaveToDo() {
-        return haveToDo;
+    public String getTaskOutcome() {
+        return taskOutcome;
     }
 
-    public String getDone() {
-        return done;
+    public String getDeveloperDetails() {
+        return developerDetails;
     }
 
-    public String getInProgress() {
-        return inProgress;
+    public int getNumOfTasks() {
+        return numOfTasks;
+    }
+
+    public int getI() {
+        return i;
+    }
+
+    public String getLastTN() {
+        return lastTN;
+    }
+
+    public String getLastTaskNo() {
+        return lastTaskNo;
+    }
+
+    public char getLastDName() {
+        return lastDName;
+    }
+
+    public char getLastDName2() {
+        return lastDName2;
+    }
+
+    public char getLastDName3() {
+        return lastDName3;
     }
     
-    
-    
-    
-    
+    public String getDeveloperName() {
+        return developerName;
+    }
+
 // Creation of setters that assign values for each attribute
 
     public void setTaskN(String taskN) {
@@ -101,22 +133,46 @@ public class Task {
         this.taskDuration = taskDuration;
     }
 
-    public void setHaveToDo(String haveToDo) {
-        this.haveToDo = haveToDo;
+    public void setTaskOutcome(String taskOutcome) {
+        this.taskOutcome = taskOutcome;
     }
 
-    public void setDone(String done) {
-        this.done = done;
+    public void setDeveloperDetails(String developerDetails) {
+        this.developerDetails = developerDetails;
     }
 
-    public void setInProgress(String inProgress) {
-        this.inProgress = inProgress;
+    public void setNumOfTasks(int numOfTasks) {
+        this.numOfTasks = numOfTasks;
+    }
+
+    public void setI(int i) {
+        this.i = i;
+    }
+
+    public void setLastTaskNo(String lastTaskNo) {
+        this.lastTaskNo = lastTaskNo;
+    }
+
+    public void setLastDName(char lastDName) {
+        this.lastDName = lastDName;
+    }
+
+    public void setLastDName2(char lastDName2) {
+        this.lastDName2 = lastDName2;
+    }
+
+    public void setLastDName3(char lastDName3) {
+        this.lastDName3 = lastDName3;
     }
     
-    
-    
-    
-    
+    public void setLastTN(String lastTN) {
+        this.lastTN = lastTN;
+    }
+
+    public void setDeveloperName(String developerName) {
+        this.developerName = developerName;
+    }
+ 
 // Creating a Methods so that users can add and specify tasks
     
     public void userSelection(){
@@ -124,89 +180,117 @@ public class Task {
         
         
         boolean end = false;
-       do{
-     var select = JOptionPane.showOptionDialog(null, "Please select one of the options", "EasyKhanban", 
-                                                      JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, getUserOptions(),0  );
-     if (select == 0 ){
+        
+       do{                  //do-while loop so that the user will be able to go back to the main menu until the press quit
+           
+            int select = Integer.parseInt(JOptionPane.showInputDialog(null,  userOptions ));
+     
+     if (select == 1 ){
+         
+       numOfTasks = Integer.parseInt(JOptionPane.showInputDialog(null,"How many tasks are you going to add? there should be no morethan two tasks."));
+       
+     for( i = 0 ;i< numOfTasks ; i++){
+         
        taskN = JOptionPane.showInputDialog(null,"Add Task Name");
        
        taskNo = ( JOptionPane.showInputDialog(null,"Add Task Number"));
        
-       taskDescription = JOptionPane.showInputDialog(null,"Add task description, this should be under 50 characters in length");
+       taskDescription = JOptionPane.showInputDialog(null,"Please enter a task description of less than 50 charecters");
        
-       taskDuration = Integer.parseInt( JOptionPane.showInputDialog(null,"What is the estimated duration of the task"));
+                        checkTaskDescription();
+                        
+                       JOptionPane.showMessageDialog(null, "Task successfully captured!");
+            
+       developerName = JOptionPane.showInputDialog(null,"Please enter your name");
        
+       taskDuration = Integer.parseInt( JOptionPane.showInputDialog(null,"What is the estimated duration of the task in hours"));
+      
        var taskStatus = JOptionPane.showOptionDialog(null, "Please select one of the options", "Status", 
                                                       JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, statusOptions,0  );
-       
-       if (taskStatus == 0){
-         haveToDo =  JOptionPane.showInputDialog(null, "Type: to do");
-       }
-       
-       if (taskStatus ==1){
-          done = JOptionPane.showInputDialog(null, "Type: Done!");
-       }
-       
-       if (taskStatus ==2){
-           inProgress = JOptionPane.showInputDialog(null, "In progress...");
-       }
-       
-       JOptionPane.showMessageDialog(null ,objLogin.firstName + " " + objLogin.lastName);
+     
+      switch(taskStatus){
+          case 0:
+             taskOutcome = "ToDo";
+          break;
+           
+          case 1:
+              taskOutcome = "Done!";
+          break;
+          
+          case 2:
+              taskOutcome = "In progress...";
+          break;
+          
+          default:
+              JOptionPane.showMessageDialog(null, "Option is not found, please try again");
+      }
+            printTaskDetails();      
     }
+  }   
     
-    if (select == 1){
-        JOptionPane.showInputDialog(null, "Coming soon!");
+    if (select == 2){
+        JOptionPane.showMessageDialog(null, "Coming soon!");
     }
    
-    if (select == 2){
+    if (select == 3){
         JOptionPane.showMessageDialog(null, "You are quiting");
         end = true;
     }
     
        } while (end == false);
    
-   
     }
     
 //Creating a method of counting the lenght of the task discription
     
    boolean checkTaskDescription(){
-       int charLength = taskDescription.length();
-       
+        
+        while(taskDescription.length()>50){
+            taskDescription = JOptionPane.showInputDialog(null, "Please enter a task description of less than 50 charecters");
+        }
+        
+        
        return true;
    }
    
 //Creating a method for compiling and structuring a task identity 
    String createTaskID(){
        
-       char lastN = objLogin.firstName.charAt( objLogin.firstName.length() - 1 );
-       char secondLastN = objLogin.firstName.charAt( objLogin.firstName.length() - 2 );
-       char thirdLastN = objLogin.firstName.charAt( objLogin.firstName.length() - 3 );
+        lastTN = taskN.substring(0, 2);
+        lastTaskNo = taskNo.substring(0, 1);
+        lastDName = developerName.charAt(developerName.length()-1);
+        lastDName2 = developerName.charAt(developerName.length()-2);
+        lastDName3 = developerName.charAt(developerName.length()-3);
        
-       char lastTN = taskN.charAt( taskN.length() - 1 );
-       char secondLastTN = taskN.charAt( taskN.length() - 2 );
+      taskID = lastTN + ":" + lastTaskNo + ":" + " " + lastDName3 + lastDName2 + lastDName ;
        
-       char lastTNo = taskNo.charAt( taskNo.length() - 1 );
-       char secondLastTNo = taskNo.charAt( taskNo.length() - 2 );
-       
-     String taskID =lastTN + secondLastTN + ":" + lastTNo + secondLastTNo + ":" + lastN + secondLastN + thirdLastN ;
-      
-      return taskID;
+      return taskID ;
    }
    
-   //Creating a method for displaying the all the task details
-   Object []  printTaskDetails(){
-     Object[] taskDetail = new Object[7];
-     taskDetail[0] = "Task Status:"+ " " + done ;
-     taskDetail[1] = "developerDeatils";
-     taskDetail[2] = "Task Number:" + " " + taskNo;
-     taskDetail[3] = "Task Name:" + " " + taskN;
-     taskDetail[4] = "Task Description:" + " " + taskDescription;
-     taskDetail[5] = "Task ID:" + " " + taskID;
-     taskDetail[6] = "Task Duration:" + " " + taskDuration;
-      
-     JOptionPane.showMessageDialog(null, taskDetail);
-      return taskDetail;
+//Creating a method for displaying the all the task details
+  
+   String printTaskDetails(){
+       String taskDetail = ("\nTask Status: " + taskOutcome + 
+                             "\nDeveloperDeatils: " + developerName +
+                             "\nTask Number: " + taskNo + 
+                             "\nTask Name: " + taskN + 
+                             "\nTask Description: " + taskDescription +
+                             "\nTask ID: " + createTaskID().toUpperCase() +
+                             "\nTask Duration in Hours(H): " + taskDuration);
+       JOptionPane.showMessageDialog(null, taskDetail);
+       return taskDetail;
    }
-}
-//{,"developerDeatils"}
+   
+//Creating a method to calculte the total hours of all the tasks
+   
+   int returnTotalHours(){
+        int totalHours = taskDuration;
+         if (numOfTasks > 1){totalHours += taskDuration  ;}// if the number of tasks is greater than 1, this will add up the hours of all the tasks
+     
+      JOptionPane.showMessageDialog(null,"Total hours of all tasks: " + totalHours );
+      return totalHours;
+   }
+      
+ }
+
+   
