@@ -287,8 +287,8 @@ public class leshopeTaskArrayPrj {
                       
                       developer[p] = null;
                       taskNumber[p] = 0;
+                      taskDescription[p] = null;
                       taskName [p] = null;
-                      
                       taskDuration[p] = 0;
                       taskOutcome [p] = null;
                       taskID [p] = null;
